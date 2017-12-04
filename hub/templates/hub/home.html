@@ -3,13 +3,23 @@
 {% block content %}
 <h2>Welcome, {{username}}!</h2>
 
-<h2>The current temperature is: {{temp}} F</h2>
 
-<h2>Last 5 post from r/kpop:</h2>
-<ul>
-  {% for post in reddit %}
-    <li><h2>{{ post.title }}</h2></li>
-  {% endfor %}
-</ul>
+<div class="card">
+  <h4 class="card-header">Weather</h4>
+  <div class="card-body">
+    <p class="card-text">The current temperature is: {{temp}} F</p>
+  </div>
+</div>
+
+<div class="card">
+  <h4 class="card-header"><a href="https://www.reddit.com/" target="_blank">Reddit</a></h4>
+  <div class="card-body">
+    <h4 class="card-title">Last 5 posts from r/kpop</h4>
+    {% for post in reddit %}
+    	<p class="card-text">{{ post.title }}</p>
+  	{% endfor %}
+  </div>
+</div>
+
 
 {% endblock %}

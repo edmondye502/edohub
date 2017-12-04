@@ -33,7 +33,4 @@ def reddit(subreddit):
 	subreddit = reddit.subreddit(subreddit)
 	new_submissions = subreddit.new(limit=5)
 
-	# for submission in new_submissions:
-	# 	if not submission.stickied:
-	# 		print(str(submission.title, 'utf-8'))
 	return new_submissions
