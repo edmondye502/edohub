@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>EdoHub</title>
+	<meta charset="utf-8" />
+	
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'hub/vendor/bootstrap/css/bootstrap.min.css' %}" type = "text/css"/>
+
+</head>
+
+<body id="page-top">
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </section>
+   
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'hub/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'hub/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+
+</html>
