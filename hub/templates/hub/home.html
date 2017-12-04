@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Welcome, {{username}}!</h2>
 
-
+<!-- Weather -->
 <div class="card">
   <h4 class="card-header">Weather</h4>
   <div class="card-body">
@@ -11,12 +11,19 @@
   </div>
 </div>
 
+<!-- Reddit -->
 <div class="card">
   <h4 class="card-header"><a href="https://www.reddit.com/" target="_blank">Reddit</a></h4>
   <div class="card-body">
-    <h4 class="card-title">Last 5 posts from r/kpop</h4>
-    {% for post in reddit %}
-    	<p class="card-text">{{ post.title }}</p>
+    <h4 class="card-title">Last 5 posts from <a href="https://www.reddit.com/r/kpop" target="_blank">r/kpop</a>:</h4>
+    {% for post in rkpop_posts %}
+    	<p class="card-text"><a href="https://www.reddit.com/{{post.permalink}}" target="_blank">{{ post.title }}</a></p>
+  	{% endfor %}
+  </div>
+  <div class="card-body">
+    <h4 class="card-title">Last 5 posts from <a href="https://www.reddit.com/r/twice" target="_blank">r/twice</a>:</h4>
+    {% for post in rtwice_posts %}
+    	<p class="card-text"><a href="https://www.reddit.com/{{post.permalink}}" target="_blank">{{ post.title }}</a></p>
   	{% endfor %}
   </div>
 </div>
