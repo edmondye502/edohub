@@ -9,26 +9,39 @@
 	
 	{% load staticfiles %}
 	<link rel="stylesheet" href="{% static 'hub/vendor/bootstrap/css/bootstrap.min.css' %}" type = "text/css"/>
-
+<!--   <link rel="stylesheet" href="{% static 'hub/css/header.css' %}" type = "text/css"/>
+ -->
 </head>
 
 <body id="page-top">
 
-    <section>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            {% block content %}
-            {% endblock %}
-          </div>
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/accounts/logout/">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          {% block content %}
+          {% endblock %}
         </div>
       </div>
-    </section>
-   
+    </div>
+  </section>
+ 
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="{% static 'hub/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'hub/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'hub/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'hub/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 </body>
 

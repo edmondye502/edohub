@@ -1,20 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import requests
 import praw
 
-# Create your views here.
-def index2(request):
-	weather = temperature()
-	reddit_posts = reddit('kpop')
-	if request.user.is_authenticated():
-		msg = "<h2>Hi " +request.user.username +". The current temperature is "+str(weather)+"</h2>"
-	else:
-		msg = "<h2>NOT LOGGED IN</h2>"
-	return HttpResponse(msg)
-
-
 def index(request):
+
+	if not request.user.is_authenticated():
+		return redirect('/accounts/login/')
+
 	weather = temperature()
 	reddit_posts = reddit('kpop')
 
