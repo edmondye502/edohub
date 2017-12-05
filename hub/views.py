@@ -1,7 +1,10 @@
+from collections import OrderedDict
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import requests
 import praw
+import urllib
+from bs4 import BeautifulSoup
 
 def index(request):
 
@@ -9,11 +12,13 @@ def index(request):
 		return redirect('/accounts/login/')
 
 	weather = temperature()
-	#rkpop_posts = reddit('kpop')
-	#rtwice_posts = reddit('twice')
+	rkpop_posts = reddit('kpop')
+	rtwice_posts = reddit('twice')
 
-	#content = {'username': request.user.username, 'temp': weather, 'rkpop_posts': rkpop_posts, 'rtwice_posts': rtwice_posts}
-	content = {'username': request.user.username, 'temp': weather}
+	sfg_traderumors = traderumors();
+
+	content = {'username': request.user.username, 'temp': weather, 'rkpop_posts': rkpop_posts, 'rtwice_posts': rtwice_posts, 'sfg_traderumors': sfg_traderumors}
+	#content = {'username': request.user.username, 'temp': weather, 'sfg_traderumors': sfg_traderumors}
 
 	return render(request, 'hub/home.html', content)
 
@@ -36,3 +41,15 @@ def reddit(subreddit, limit = 5):
 	new_submissions = subreddit.new(limit=limit)
 
 	return new_submissions
+
+def traderumors():
+	target_page = 'https://www.mlbtraderumors.com/san-francisco-giants'
+	page = urllib.request.urlopen(target_page).read()
+	soup = BeautifulSoup(page, 'html.parser')
+
+	articles = OrderedDict()
+	for data in soup.find_all('h2', class_='entry-title')[:5]:
+		for a in data.find_all('a'):
+			articles[a.text] = a['href'] 
+
+	return articles

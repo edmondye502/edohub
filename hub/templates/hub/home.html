@@ -28,5 +28,16 @@
   </div>
 </div>
 
+<!-- MLBTradeRumors -->
+<div class="card">
+  <h4 class="card-header"><a href="https://www.mlbtraderumors.com/" target="_blank">MLB Trade Rumors</a></h4>
+  <div class="card-body">
+    <h4 class="card-title">Last 5 posts from <a href=https://www.mlbtraderumors.com/san-francisco-giants" target="_blank">SFG Trade Rumors</a>:</h4>
+    {% for title, link in sfg_traderumors.items %}
+    	<p class="card-text"><a href="{{link}}" target="_blank">{{ title }}</a></p>
+  	{% endfor %}
+  </div>
+</div>
+
 
 {% endblock %}
