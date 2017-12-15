@@ -1,3 +1,5 @@
 from django.contrib import admin
+from hub.models import WeatherSetting
 
-# Register your models here.
+
+admin.site.register(WeatherSetting)

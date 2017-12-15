@@ -1,10 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# class Hubs(models.Model):
-# 	user_id = models.IntegerField()
-# 	body = models.TextField()
-
-# 	def __str__(self):
-# 		return self.title
-
-
+class WeatherSetting(models.Model):
+	user = models.ForeignKey(User)
+	zipcode = models.IntegerField()
+	unit = models.CharField(max_length = 1)

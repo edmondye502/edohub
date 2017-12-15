@@ -5,10 +5,22 @@
 
 <!-- Weather -->
 <div class="card">
-  <h4 class="card-header">Weather</h4>
+  <h4 class="card-header">Weather<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#weatherSettings" aria-expanded="false" aria-controls="weatherSettings" style="float: right">
+    Settings
+  </button></h4>
+  
   <div class="card-body">
     <p class="card-text">The current temperature is: {{temp}} F</p>
+    <div class="card-footer collapse" id="weatherSettings">
+      <form action="/weather_setting/" method="post">
+        {% csrf_token %}
+        {{ weather_form.as_p }}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
   </div>
+
+  
 </div>
 
 <!-- Reddit -->
@@ -32,7 +44,7 @@
 <div class="card">
   <h4 class="card-header"><a href="https://www.mlbtraderumors.com/" target="_blank">MLB Trade Rumors</a></h4>
   <div class="card-body">
-    <h4 class="card-title">Last 5 posts from <a href=https://www.mlbtraderumors.com/san-francisco-giants" target="_blank">SFG Trade Rumors</a>:</h4>
+    <h4 class="card-title">Last 5 articles from <a href=https://www.mlbtraderumors.com/san-francisco-giants" target="_blank">SFG Trade Rumors</a>:</h4>
     {% for title, link in sfg_traderumors.items %}
     	<p class="card-text"><a href="{{link}}" target="_blank">{{ title }}</a></p>
   	{% endfor %}
