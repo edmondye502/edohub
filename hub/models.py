@@ -5,3 +5,4 @@ class WeatherSetting(models.Model):
 	user = models.ForeignKey(User)
 	zipcode = models.IntegerField()
 	unit = models.CharField(max_length = 1)
+	date = models.DateTimeField(auto_now = True)

@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 import requests, praw, urllib
 from bs4 import BeautifulSoup
 from hub.forms import WeatherSettingForm
-
+from hub.models import WeatherSetting
 
 class HubView(TemplateView):
 
@@ -14,9 +14,15 @@ class HubView(TemplateView):
 		if not request.user.is_authenticated():
 			return redirect('/accounts/login/')
 
-		weather = self.temperature()
-		weather_form = WeatherSettingForm()
-
+		weather_data = WeatherSetting.objects.filter(user=request.user)
+		if weather_data.exists():
+			weather_data = weather_data.latest('date')
+			weather = self.temperature(zipcode = weather_data.zipcode, unit = weather_data.unit)
+			weather_form = WeatherSettingForm(initial = {'zipcode' : weather_data.zipcode, 'unit' : weather_data.unit})
+		else:
+			weather_form = WeatherSettingForm()
+			weather = self.temperature()
+		
 		#rkpop_posts = self.reddit('kpop')
 		#rtwice_posts = self.reddit('twice')
 		sfg_traderumors = self.traderumors();
@@ -34,14 +40,18 @@ class HubView(TemplateView):
 			weather_setting.save()
 			weather_zip = weather_form.cleaned_data['zipcode']
 			weather_unit = weather_form.cleaned_data['unit']
-			return redirect('/home')
+			return redirect('/hub')
 
-	def temperature(self):
-		zipcode = '94122'
-		r = requests.get('http://api.openweathermap.org/data/2.5/weather?zip='+zipcode+',us&appid=d7608eb9909f2561fa7a7a1b62d078b5')
-		temp_k = float(r.json()['main']['temp'])
-		temp_f = int(round((temp_k - 273) * 1.8 + 32))
-		return temp_f
+	def temperature(self, zipcode = 94122, unit = 'f'):
+
+		r = requests.get('http://api.openweathermap.org/data/2.5/weather?zip='+str(zipcode)+',us&appid=d7608eb9909f2561fa7a7a1b62d078b5')
+		temp = float(r.json()['main']['temp'])
+		if unit == 'f':
+			temp = int(round((temp - 273) * 1.8 + 32))
+		elif unit == 'c': 
+			temp = int(round(temp - 273.15))
+
+		return str(temp) + unit.capitalize()
 
 
 	def reddit(self, subreddit, limit = 5):

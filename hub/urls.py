@@ -11,5 +11,5 @@ urlpatterns = [
     # url(r'^(?P<pk>\d+)$', DetailView.as_view(
     #     model = Post,
     #     template_name = "blog/post.html")),
-    url(r'^', HubView.as_view(), name = 'hub'),
+    url(r'^$', HubView.as_view(), name = 'hub'),
 ]
